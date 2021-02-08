@@ -1,12 +1,13 @@
 """interactions.py
 """
 
-US_AG_INTERACTION_MAP = {
-    'num1': [],
+Richieste = {
+    'num1': ["Serve","Servono","Vorrei","Desidero","Voglio","Servirebbe"],
+    'num2': ["Uccello"]
 
 }
 
-US_AG_RESPONSE_MAP = {
-    'num1': [],
-
+Risposte = {
+    'num1': ["Sono la regina dei fiori..."],
+    'num2': ["cane..."],
 }
