@@ -4,14 +4,13 @@ from agent.agent import Agent
 
 speaker = Speaker()
 listener = Listener()
-agent = Agent(speaker, listener, '')
+agent = Agent(speaker, listener)
 
 speaker.speak('Ciao sono sara, come posso aiutarti?')
 
 a=False
 while a==False:
     command,taken=listener.listen()
-    #command, taken = input(), True # ASR cut-off (use console instead)
     command = command.capitalize()
 
     if command=='Arrivederci':
@@ -21,4 +20,4 @@ while a==False:
     if taken==False:
         print("Sara: Non ho capito, puoi ripetere?")
         a=False
-
+    agent.think_man(command)
