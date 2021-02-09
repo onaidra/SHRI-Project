@@ -3,6 +3,11 @@
 from agent.interactions import Richieste,Risposte
 import re
 import random
+from colorama import init
+from termcolor import colored
+
+botName=colored('Sara','yellow')
+
 database =  {"Rosa":4, "Calla":1.5, "Tulipano":3, "Giglio":3, "Gerbera":1.20, "Margherita":1, "Orchidea":7, "Girasole":4, "Viola":2, "Papavero":0.50,"Fiore di Loto":4,
 "Ginestra":0.2, "Crisantemo":0.7, "arancio":0.3,  "Firdaliso":2.5, "Calendula":1, "Lavanda":0.3, "Non ti scordar di me":0.2, "Ortensia":2, "Peonia":1.5, "Mimosa":3,"Giacinti":8,
 "Narcisi":1,"Ibisco":1.3,"Magnolie":1.2,"Pesco":0.3, "Acacia":0.3, "Azalea":1, "Anemone":1, "Gelsomino":0.2, "Erica":0.3,  "Iris":1.5, "Sterlitzia":2,"lilla":1,
@@ -28,7 +33,7 @@ class Agent:
                     match = re.search(interaction.upper(),varx)
                     if match:
                         find_match=True
-                        print(Risposte[k][0])
+                        print(botName+": "+Risposte[k][0])
                         self.speaker.speak(Risposte[k])
                         if k == '4':     #tipologia evento
                             varx2=command.split()
@@ -53,8 +58,9 @@ class Agent:
 
                         break
         if not find_match:
+            print(colored("Mi dispiace non abbiamo nulla",'red'))
             self.speaker.speak("Mi dispiace non abbiamo nulla")
-            print("Mi dispiace non abbiamo nulla")
+            
 '''   
     def think_man(self, command):
         try:
