@@ -12,7 +12,7 @@ class Listener():
         with mic as source:
             r.adjust_for_ambient_noise(source)
             print("Sara: Ti ascolto. . .")
-            audio=r.listen(source)
+            audio=r.listen(source,phrase_time_limit=5)
 
             sentence=""
             taken=True
