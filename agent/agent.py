@@ -15,18 +15,22 @@ class Agent:
         self.speaker = speaker
         self.listener = listener
 
-    def think_man(self, command):
-        command=command.split(" ")
+    def think_man(self, command:str):
+        varx=command.upper()
+        find_match=False
         for k in Richieste:
-            for i, interaction in enumerate(Richieste[k]):
-                for ii in command:
-                    ii=ii.capitalize()
-                    match = re.search(interaction, ii)
-                    if match:
-                        res=Risposte[k][0]
-                        print(res)
-                        self.speaker.speak(res)
+            if not find_match:
+                for i, interaction in enumerate(Richieste[k]):
+                    match = re.search(interaction.upper(),varx)
 
+                    if match:
+                        find_match=True
+                        print(Risposte[k][0])
+                        self.speaker.speak(Risposte[k])
+                        break
+        if not find_match:
+            self.speaker.speak("Mi dispiace non abbiamo nulla")
+            print("Mi dispiace non abbiamo nulla")
 '''   
     def think_man(self, command):
         try:
