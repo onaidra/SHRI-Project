@@ -142,5 +142,6 @@ def trigger_request(self,varx):
         self.prezzo+=database[self.lista_[i]]*self.listaNum_[i]
     totale="Perfetto,il totale è:",self.prezzo
     print(botName+totale)
+    self.speaker.speak(totale)
     
     self.trigger=False
