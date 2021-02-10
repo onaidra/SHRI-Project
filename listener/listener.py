@@ -16,8 +16,8 @@ class Listener():
         with mic as source:
             r.adjust_for_ambient_noise(source)
             print(botName+": Ti ascolto. . .")
-            audio=r.listen(source,phrase_time_limit=5)
-
+            audio=r.listen(source)
+            #phrase_time_limit=5
             sentence=""
             taken=True
             try:
