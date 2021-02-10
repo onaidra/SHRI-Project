@@ -98,7 +98,8 @@ def ownFlowers(self,varx2):
                 vv1=vv[:-1]
                 vv2=vv[:-2]
                 if v ==vv1 or v ==vv2:
-                    self.lista_.append(vv)
+                    if vv not in self.lista_:
+                        self.lista_.append(vv)
     for v in varx2:
         
         if v.isnumeric():
