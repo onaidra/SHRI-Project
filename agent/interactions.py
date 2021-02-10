@@ -24,7 +24,7 @@ Richieste = {
     '5': ["([a-z])?(prezzo|costa|viene|costo|a quanto)([a-z])?"],
     '6': ["([a-z])?(lo prendo|va bene|perfetto|ok)([a-z])?"],
     '7': ["([a-z])?(altri|altro|diverso|diversi)([a-z])?"],
-    '8': ["([a-z])?(mazzo di|mazzetto di)([a-z])?"],
+    '8': ["([a-z])?(mazzo di|mazzetto di|mazzo con)([a-z])?"],
 
     #'saluto': ["([a-z])?(arrivederci|ciao|alla prossima)([a-z])?"]
 

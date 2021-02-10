@@ -32,6 +32,9 @@ class Agent:
         if match=='8':
             self.trigger=True
             trigger_request(self,command.split())
+            self.lista_=[]
+            self.listaNum_=[]
+            self.prezzo=0
         if match==False:
             print(botName+colored(": Mi dispiace non abbiamo nulla",'red'))
             self.speaker.speak("Mi dispiace non abbiamo nulla")
@@ -92,7 +95,9 @@ def ownFlowers(self,varx2):
         v=v[:-1]
         if v != '':   
             for vv in database:
-                if v in vv:
+                vv1=vv[:-1]
+                vv2=vv[:-2]
+                if v ==vv1 or v ==vv2:
                     self.lista_.append(vv)
     for v in varx2:
         
@@ -140,8 +145,8 @@ def trigger_request(self,varx):
             ownFlowers(self,command.split())
     for i in range(len(self.lista_)):
         self.prezzo+=database[self.lista_[i]]*self.listaNum_[i]
-    totale="Perfetto,il totale è:",self.prezzo
-    print(botName+totale)
+    totale="Perfetto,il totale è:"+str(self.prezzo)
+    print(botName+": "+totale)
     self.speaker.speak(totale)
     
     self.trigger=False
