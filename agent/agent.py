@@ -24,43 +24,56 @@ class Agent:
         self.speaker = speaker
         self.listener = listener
         self.prezzo=0
+
     def think_man(self, command:str):
         varx=command.upper()
-        find_match=False
-        for k in Richieste:
-            if not find_match:
-                for i, interaction in enumerate(Richieste[k]):
-                    match = re.search(interaction.upper(),varx)
-                    if match:
-                        find_match=True
-                        print(botName+": "+Risposte[k][0])
-                        self.speaker.speak(Risposte[k])
-                        if k == '4':     #tipologia evento
-                            varx2=command.split()
-                            for v in varx2:
-                                v=v.capitalize()
-                                if v in database2.keys():
-                                    nome=v
-                                    nomeMazzo=database2[nome][0]
-                                    descrizioneMazzo=database2[nome][1]
-                                    self.prezzo=database2[nome][2]
-                                    text1="Che ne pensa di questo "+nomeMazzo+"?\n"+descrizioneMazzo
-                                    print(text1)
-                                    self.speaker.speak(text1)
-                        if k=='5':
-                            if self.prezzo==0:
-                                print("Non ho capito di cosa vuole sapere il prezzo")
-                                self.speaker.speak("Non ho capito di cosa vuole sapere il prezzo")
-                            else :
-                                pr="Il costo è di "+str(self.prezzo)+" euro"
-                                print(pr)
-                                self.speaker.speak(pr)
+        match=find_match(self,varx)
 
-                        break
-        if not find_match:
-            print(colored("Mi dispiace non abbiamo nulla",'red'))
+        
+        if match == '4':     #tipologia evento
+            varx2=command.split()
+            db_find(self,varx2)
+        
+        if match=='5':
+        
+            if self.prezzo==0:
+                print(botName+": Non ho capito di cosa vuole sapere il prezzo")
+                self.speaker.speak("Non ho capito di cosa vuole sapere il prezzo")
+            else :
+                pr="Il costo è di "+str(self.prezzo)+" euro"
+                print(botName+": "+pr)
+                self.speaker.speak(pr)
+
+        if match==False:
+            print(colored(botName+": Mi dispiace non abbiamo nulla",'red'))
             self.speaker.speak("Mi dispiace non abbiamo nulla")
-            
+
+
+def find_match(self,command):
+    print("find_match")
+    for k in Richieste:
+        for i, interaction in enumerate(Richieste[k]):
+            match = re.search(interaction.upper(),command)
+            if match:
+                print(botName+": "+Risposte[k][0])
+                self.speaker.speak(Risposte[k])
+                return k
+    return False
+
+
+
+def db_find(self,varx2):
+    print("db_find")
+    for v in varx2:
+        v=v.capitalize()
+        if v in database2.keys():
+            nome=v
+            nomeMazzo=database2[nome][0]
+            descrizioneMazzo=database2[nome][1]
+            self.prezzo=database2[nome][2]
+            text1="Che ne pensa di questo "+nomeMazzo+"?\n"+descrizioneMazzo
+            print(botName+": "+text1)
+            self.speaker.speak(text1)
 '''   
     def think_man(self, command):
         try:

@@ -17,10 +17,13 @@ while a==False:
     command = command.capitalize()
 
     if command=='Arrivederci':
-        speaker.speak("Graziee, a presto")
+        speaker.speak("Grazie, a presto")
         break
 
     if taken==False:
-        print(botName+": Non ho capito, puoi ripetere?")
+        frase=botName+": Non ho capito, puoi ripetere?"
+        print(frase)
+        speaker.speak("Non ho capito, puoi ripetere?")
         a=False
-    agent.think_man(command)
+    if taken == True:
+        agent.think_man(command)

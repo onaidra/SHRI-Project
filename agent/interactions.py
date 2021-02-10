@@ -21,5 +21,5 @@ Risposte = {
     '5': [""],
     '6': ["Ecco a lei il mazzo, arrivederla"],
     '7': ["No mi spiace, è l'unico che abbiamo per quel tipo di occasione"],
-    #'saluto': ["Arrivederla"]
+    #'saluto': ["Arrivederci"]
 }
