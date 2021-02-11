@@ -15,13 +15,13 @@ class Agent:
         self.prezzo=0
         self.lista_=[]
         self.listaNum_=[]
-
         self.waitForFlowers= False
         self.trigger=False
 
     def think_man(self, command:str):
         varx=command.upper()
         match=find_match(self,varx)
+        print(match)
         if match == '2':
             self.waitForFlowers = True
         if match == '4':     #tipologia evento
@@ -30,12 +30,26 @@ class Agent:
         if match== '5':
             varx2=command.split()
             price_fun(self,varx2)
-        if match== '8':
+        if match == '8':
             self.trigger=True
             trigger_request(self,command.split())
             self.lista_=[]
             self.listaNum_=[]
             self.prezzo=0
+        if match == '9':
+            self.trigger=True
+            ownFlowers(self,command.split())
+            self.trigger=False
+            if(len(self.lista_)!=0):
+                fun="Si le abbiamo e vengono rispettivamente "
+                for i in range(len(self.lista_)):
+                    if i<len(self.lista_)-1:
+                        fun+=str(database[self.lista_[i]])+" euro e "
+                    else:
+                        fun+=str(database[self.lista_[i]])+" euro"
+                print(botName+": "+fun)
+                self.speaker.speak(fun)
+                
         if match==False:
             print(botName+colored(": Mi dispiace non abbiamo nulla",'red'))
             self.speaker.speak("Mi dispiace non abbiamo nulla")
@@ -109,12 +123,13 @@ def ownFlowers(self,varx2):
         if v2 != '':   
             for vv in database:
                 vv1=vv[:-1]
+                if vv1 == '': vv1=False
                 vv2=vv[:-2]
+                if vv2== '': vv2=False
                 if v2 ==vv1 or v2 ==vv2:
                     if vv not in self.lista_:
-                        self.lista_.append(v.lower())
+                        self.lista_.append(vv)
     for v in varx2:
-        
         if v.isnumeric():
             v=int(v)
             self.listaNum_.append(v)
@@ -124,6 +139,7 @@ def ownFlowers(self,varx2):
                 vx=vv.upper()
                 if v == vx:
                     self.listaNum_.append(database3[vv])
+    
     if self.trigger==False:
         print_list(self)
     else:
@@ -149,20 +165,34 @@ def print_list(self):
 
 def trigger_request(self,varx):
     ownFlowers(self,varx)
+    if self.lista_==[]:
+    
+        fun="Scusi non abbiamo i fiori richiesti"
+        print(botName+": "+fun)
+        self.speaker.speak(fun)
+        return
+    
     if self.listaNum_==[]:
+    
         fun="Quante ne mettiamo?"
         print(botName+": "+fun)
         self.speaker.speak("Quante ne mettiamo?")
+    
         command,taken=self.listener.listen()
         ownFlowers(self,command.split())
+    
         while len(self.listaNum_)!= len(self.lista_):
+            
             fun="Scusi non ho capito quanti, potrebbe ripetere?"
             print(botName+": "+fun)
             self.speaker.speak("Scusi non ho capito quanti, potrebbe ripetere?")
+
             command,taken=self.listener.listen()
             ownFlowers(self,command.split())
+    
     for i in range(len(self.lista_)):
         self.prezzo+=database[self.lista_[i]]*self.listaNum_[i]
+    
     totale="Perfetto, il prezzo totale è di "+str(self.prezzo)+" euro"
     print(botName+": "+totale)
     self.speaker.speak(totale)

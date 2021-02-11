@@ -24,7 +24,8 @@ Richieste = {
     '5': ["([a-z])?(prezzo|costa|viene|costo|a quanto)([a-z])?"],
     '6': ["([a-z])?(lo prendo|va bene|perfetto|ok)([a-z])?"],
     '7': ["([a-z])?(altri|altro|diverso|diversi)([a-z])?"],
-    '8': ["([a-z])?(mazzo di|mazzetto di|mazzo con)([a-z])?"]
+    '8': ["([a-z])?(mazzo di|mazzetto di|mazzo con|vorrei)([a-z])?"],
+    '9': ["([a-z])?(avete|ci sono|vendete)([a-z])?"]
     #'saluto': ["([a-z])?(arrivederci|ciao|alla prossima)([a-z])?"]
 
 }
@@ -38,6 +39,7 @@ Risposte = {
     '6': ["Ecco a lei il mazzo, arrivederla"],
     '7': ["No mi spiace, è l'unico che abbiamo per quel tipo di occasione"],
     '8': [""],
+    '9': [""],
     'fiori':[]
     #'saluto': ["Arrivederci"]
 }
