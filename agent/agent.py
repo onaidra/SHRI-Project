@@ -28,8 +28,9 @@ class Agent:
             varx2=command.split()
             db2_find(self,varx2) 
         if match== '5':
-            price_fun(self)
-        if match=='8':
+            varx2=command.split()
+            price_fun(self,varx2)
+        if match== '8':
             self.trigger=True
             trigger_request(self,command.split())
             self.lista_=[]
@@ -73,16 +74,28 @@ def db2_find(self,varx2):
 
 
 
-def price_fun(self):
+def price_fun(self,varx2):
     if self.prezzo==0:
-        print(botName+": Non ho capito di cosa vuole sapere il prezzo")
-        self.speaker.speak("Non ho capito di cosa vuole sapere il prezzo")
+        price=single_price(self,varx2)
+        print(botName+": Il prezzo è di "+str(price)+" euro")
+        pr="Il prezzo è di "+str(price)+" euro"
+        self.speaker.speak(pr)
     else :
         pr="Il costo è di "+str(self.prezzo)+" euro"
         print(botName+": "+pr)
         self.speaker.speak(pr)
+        self.prezzo=0
 
-
+def single_price(self,varx2):
+    for v in varx2:
+        v2=v.capitalize()
+        v2=v2[:-1]
+        if v2 != '':   
+            for vv in database:
+                vv1=vv[:-1]
+                vv2=vv[:-2]
+                if v2 ==vv1 or v2 ==vv2:
+                    return database[vv]
 
 
 def ownFlowers(self,varx2):
@@ -91,15 +104,15 @@ def ownFlowers(self,varx2):
         self.lista_=[]
         self.listaNum_=[]
     for v in varx2:
-        v=v.capitalize()
-        v=v[:-1]
-        if v != '':   
+        v2=v.capitalize()
+        v2=v2[:-1]
+        if v2 != '':   
             for vv in database:
                 vv1=vv[:-1]
                 vv2=vv[:-2]
-                if v ==vv1 or v ==vv2:
+                if v2 ==vv1 or v2 ==vv2:
                     if vv not in self.lista_:
-                        self.lista_.append(vv)
+                        self.lista_.append(v.lower())
     for v in varx2:
         
         if v.isnumeric():
@@ -120,8 +133,10 @@ def ownFlowers(self,varx2):
 def print_list(self):
     x=""
     if len(self.lista_)==len(self.listaNum_) and len(self.lista_)!=0:
+        for elem in self.listaNum_:
+            self.prezzo+=elem
         for elem in range(len(self.lista_)):
-            x+=self.lista_[elem]+" "+str(self.listaNum_[elem])+" "
+            x+=str(self.listaNum_[elem])+" "+self.lista_[elem]+" "
         fun="Perfetto, il suo mazzo sarà composto da: "+x
         print(botName+": "+fun)
         self.speaker.speak(fun)
@@ -135,18 +150,20 @@ def print_list(self):
 def trigger_request(self,varx):
     ownFlowers(self,varx)
     if self.listaNum_==[]:
-        print("Quante ne mettiamo rispettivamente?")
-        self.speaker.speak("Quante ne mettiamo rispettivamente?")
+        fun="Quante ne mettiamo?"
+        print(botName+": "+fun)
+        self.speaker.speak("Quante ne mettiamo?")
         command,taken=self.listener.listen()
         ownFlowers(self,command.split())
         while len(self.listaNum_)!= len(self.lista_):
-            print("Scusi non ho capito quanti,potrebbe ripetere?")
-            self.speaker.speak("Scusi non ho capito quanti,potrebbe ripetere?")
+            fun="Scusi non ho capito quanti, potrebbe ripetere?"
+            print(botName+": "+fun)
+            self.speaker.speak("Scusi non ho capito quanti, potrebbe ripetere?")
             command,taken=self.listener.listen()
             ownFlowers(self,command.split())
     for i in range(len(self.lista_)):
         self.prezzo+=database[self.lista_[i]]*self.listaNum_[i]
-    totale="Perfetto,il totale è:"+str(self.prezzo)
+    totale="Perfetto, il prezzo totale è di "+str(self.prezzo)+" euro"
     print(botName+": "+totale)
     self.speaker.speak(totale)
     

@@ -18,14 +18,13 @@ database3={'uno':1,'due':2,'tre':3,'quattro':4,'cinque':5,'sei':6,'sette':7,'ott
 
 Richieste = {
     '1': ["([a-z])?(Mi servirebbe|Vorrei|Ho bisogno di|Desidero|Voglio|Mi serve|Vorrei comprare|Voglio comprare|Desidero comprare)? un mazzo di fiori([a-z])?"],
-    '2': ["([a-z])?(Ho qualche idea|Sì ho un'idea|Sì avevo un'idea|Sì un'idea|Sì ha un'idea)([a-z])?"],
-    '3': ["([a-z])?(Mi consigli lei|Faccia lei|consiglio|non saprei|non ho idea|non ne ho idea|mi aiuti|mi consigli|fai tu|non so)([a-z])?"],
+    '2': ["([a-z])?(Ho qualche idea|Sì ho un'idea|Sì avevo un'idea|Sì un'idea|Ho un'idea|Sì avrei un'idea|Sì ha un'idea)([a-z])?"],
+    '3': ["([a-z])?(Mi consigli lei|Faccia lei|consiglio|non saprei|non ho idea|non ho un'idea|non ne ho idea|mi aiuti|mi consigli|fai tu|non so)([a-z])?"],
     '4': ["([a-z])?(matrimonio|compleanno|comunione|san valentino|funerale|festa della donna|anniversario|battesimo|fidanzamento)([a-z])?"],
     '5': ["([a-z])?(prezzo|costa|viene|costo|a quanto)([a-z])?"],
     '6': ["([a-z])?(lo prendo|va bene|perfetto|ok)([a-z])?"],
     '7': ["([a-z])?(altri|altro|diverso|diversi)([a-z])?"],
-    '8': ["([a-z])?(mazzo di|mazzetto di|mazzo con)([a-z])?"],
-
+    '8': ["([a-z])?(mazzo di|mazzetto di|mazzo con)([a-z])?"]
     #'saluto': ["([a-z])?(arrivederci|ciao|alla prossima)([a-z])?"]
 
 }
