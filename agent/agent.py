@@ -7,6 +7,7 @@ from colorama import init
 from termcolor import colored
 import os
 botName=colored('Sara','yellow')
+
 def notFound(self,parole):
     #parole=["Non ti scordar di me","non ti scordar di me","Bocca di leone","Bocche di leone","Bocca di luna","Bocche di luna","Stella alpina","Stelle alpine"]
     with open("agent/general_db.txt","r") as f:
@@ -17,9 +18,10 @@ def notFound(self,parole):
                     if linea not in self.notFound and linea not in self.lista_:
                         self.notFound.append(linea)
             linea=f.readline().strip("\n")
+
     for i in range(len(self.lista_)):
         if self.lista_[i] in self.notFound:
-            self.notFound.pop(i)
+            self.notFound.remove(self.lista_[i])
 
 class Agent:
     def __init__(self, speaker, listener):
@@ -29,6 +31,7 @@ class Agent:
         self.lista_=[]
         self.listaNum_=[]
         self.notFound=[]
+        self.nomi=[]
 
         self.waitForFlowers= False
         self.trigger=False
@@ -37,7 +40,7 @@ class Agent:
         varx=command.upper()
 
         match=find_match(self,varx)
-        
+
         if match == '2':
             self.waitForFlowers = True
         if match == '4':     #tipologia evento
@@ -52,6 +55,8 @@ class Agent:
             self.lista_=[]
             self.listaNum_=[]
             self.notFound=[]
+            self.nomi=[]
+
             self.prezzo=0
         if match == '9':
             self.trigger=True
@@ -134,6 +139,7 @@ def ownFlowers(self,varx2):
     if self.trigger==False:
         self.lista_=[]
         self.listaNum_=[]
+        self.nomi=[]
     for v in varx2:
         v2=v.capitalize()
         v2=v2[:-1]
@@ -145,6 +151,7 @@ def ownFlowers(self,varx2):
                 if v2 ==vv1 or v2 ==vv2:
                     if vv not in self.lista_:
                         self.lista_.append(vv)
+                        self.nomi.append(v.lower())
                 else:
                     if(v2[:-1]!=''):
                         notFound(self,[v2.capitalize()])
@@ -171,7 +178,7 @@ def print_list(self):
         for elem in self.listaNum_:
             self.prezzo+=elem
         for elem in range(len(self.lista_)):
-            x+=str(self.listaNum_[elem])+" "+self.lista_[elem]+" "
+            x+=str(self.listaNum_[elem])+" "+self.nomi[elem]+" "
         fun="Perfetto, il suo mazzo sarà composto da: "+x
         print(botName+": "+fun)
         self.speaker.speak(fun)
@@ -201,12 +208,15 @@ def trigger_request(self,varx):
         
         print(botName+": "+fun)
         self.speaker.speak(fun)
-
+        self.trigger=False
+        return
+        
     if self.lista_==[]:         #
         if self.notFound==[]:
             fun="Scusi non abbiamo i fiori richiesti"
             print(botName+": "+fun)
             self.speaker.speak(fun)
+        self.trigger=False
         return
     
     if self.listaNum_==[]:
@@ -233,5 +243,4 @@ def trigger_request(self,varx):
     totale="Perfetto, il prezzo totale è di "+str(self.prezzo)+" euro"
     print(botName+": "+totale)
     self.speaker.speak(totale)
-    
     self.trigger=False

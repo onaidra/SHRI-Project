@@ -43,3 +43,7 @@ Risposte = {
     'fiori':[]
     #'saluto': ["Arrivederci"]
 }
+
+End = {
+    '1': ["([a-z])?(Arrivederci|Ciao|Alla prossima|Arrivederla)([a-z])?"]
+}
