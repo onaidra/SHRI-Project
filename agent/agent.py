@@ -5,8 +5,21 @@ import re
 import random
 from colorama import init
 from termcolor import colored
-
+import os
 botName=colored('Sara','yellow')
+def notFound(self,parole):
+    #parole=["Non ti scordar di me","non ti scordar di me","Bocca di leone","Bocche di leone","Bocca di luna","Bocche di luna","Stella alpina","Stelle alpine"]
+    with open("agent/general_db.txt","r") as f:
+        linea=f.readline().strip("\n")
+        while(linea):
+            for p in parole:
+                if p in linea:
+                    if linea not in self.notFound and linea not in self.lista_:
+                        self.notFound.append(linea)
+            linea=f.readline().strip("\n")
+    for i in range(len(self.lista_)):
+        if self.lista_[i] in self.notFound:
+            self.notFound.pop(i)
 
 class Agent:
     def __init__(self, speaker, listener):
@@ -15,13 +28,16 @@ class Agent:
         self.prezzo=0
         self.lista_=[]
         self.listaNum_=[]
+        self.notFound=[]
+
         self.waitForFlowers= False
         self.trigger=False
 
     def think_man(self, command:str):
         varx=command.upper()
+
         match=find_match(self,varx)
-        print(match)
+        
         if match == '2':
             self.waitForFlowers = True
         if match == '4':     #tipologia evento
@@ -35,6 +51,7 @@ class Agent:
             trigger_request(self,command.split())
             self.lista_=[]
             self.listaNum_=[]
+            self.notFound=[]
             self.prezzo=0
         if match == '9':
             self.trigger=True
@@ -123,12 +140,14 @@ def ownFlowers(self,varx2):
         if v2 != '':   
             for vv in database:
                 vv1=vv[:-1]
-                if vv1 == '': vv1=False
                 vv2=vv[:-2]
-                if vv2== '': vv2=False
+                
                 if v2 ==vv1 or v2 ==vv2:
                     if vv not in self.lista_:
                         self.lista_.append(vv)
+                else:
+                    if(v2[:-1]!=''):
+                        notFound(self,[v2.capitalize()])
     for v in varx2:
         if v.isnumeric():
             v=int(v)
@@ -165,11 +184,29 @@ def print_list(self):
 
 def trigger_request(self,varx):
     ownFlowers(self,varx)
-    if self.lista_==[]:
-    
-        fun="Scusi non abbiamo i fiori richiesti"
+
+    if self.notFound!=[]:       #fiori non presenti
+        fun=("Mi dispiace ma non abbiamo alcun ")
+        
+        if len(self.notFound)==1:
+            fun+=self.notFound[0]
+        
+        else:
+        
+            for i in range(len(self.notFound)):
+                if i<len(self.notFound)-1:
+                    fun+=self.notFound[i]+" ne "
+                else:
+                    fun+=self.notFound[i]
+        
         print(botName+": "+fun)
         self.speaker.speak(fun)
+
+    if self.lista_==[]:         #
+        if self.notFound==[]:
+            fun="Scusi non abbiamo i fiori richiesti"
+            print(botName+": "+fun)
+            self.speaker.speak(fun)
         return
     
     if self.listaNum_==[]:
