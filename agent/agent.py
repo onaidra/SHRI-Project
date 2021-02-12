@@ -32,6 +32,7 @@ class Agent:
         self.listaNum_=[]
         self.notFound=[]
         self.nomi=[]
+        self.colori=[]
 
         self.waitForFlowers= False
         self.trigger=False
@@ -135,11 +136,13 @@ def single_price(self,varx2):
 
 
 def ownFlowers(self,varx2):
+    indexN=0
 
     if self.trigger==False:
         self.lista_=[]
         self.listaNum_=[]
         self.nomi=[]
+        self.colori=[]
     for v in varx2:
         v2=v.capitalize()
         v2=v2[:-1]
@@ -149,12 +152,24 @@ def ownFlowers(self,varx2):
                 vv2=vv[:-2]
                 
                 if v2 ==vv1 or v2 ==vv2:
-                    if vv not in self.lista_:
-                        self.lista_.append(vv)
-                        self.nomi.append(v.lower())
+                    self.lista_.append(vv)
+                    self.nomi.append(v.lower())
+                    indexN+=1
                 else:
                     if(v2[:-1]!=''):
                         notFound(self,[v2.capitalize()])
+            for col in database4:
+                col1=col[:-1].capitalize()
+                if col1==v2:
+                    if indexN>(len(self.colori)+1):
+                        while indexN!=(len(self.colori)+1):
+                            self.colori.append("")
+                    if indexN==(len(self.colori)+1):
+                        self.colori.append(v.lower())
+                    
+    if indexN>len(self.colori):
+        while indexN>len(self.colori):
+            self.colori.append("")
     for v in varx2:
         if v.isnumeric():
             v=int(v)
@@ -165,7 +180,6 @@ def ownFlowers(self,varx2):
                 vx=vv.upper()
                 if v == vx:
                     self.listaNum_.append(database3[vv])
-    
     if self.trigger==False:
         print_list(self)
     else:
@@ -178,10 +192,14 @@ def print_list(self):
         for elem in self.listaNum_:
             self.prezzo+=elem
         for elem in range(len(self.lista_)):
-            x+=str(self.listaNum_[elem])+" "+self.nomi[elem]+" "
+            if elem<1:
+                x+=str(self.listaNum_[elem])+" "+self.nomi[elem]+" "+self.colori[elem]+" "
+            else :
+                x+="e "+str(self.listaNum_[elem])+" "+self.nomi[elem]+" "+self.colori[elem]+" "
         fun="Perfetto, il suo mazzo sarà composto da: "+x
         print(botName+": "+fun)
         self.speaker.speak(fun)
+    
     else:
         fun="Scusi non ho capito, potrebbe ripetere?"
         print(botName+": "+fun)
@@ -239,8 +257,8 @@ def trigger_request(self,varx):
     
     for i in range(len(self.lista_)):
         self.prezzo+=database[self.lista_[i]]*self.listaNum_[i]
-    
-    totale="Perfetto, il prezzo totale è di "+str(self.prezzo)+" euro"
+    print_list(self)
+    totale="Il prezzo totale è di "+str(self.prezzo)+" euro"
     print(botName+": "+totale)
     self.speaker.speak(totale)
     self.trigger=False
