@@ -3,7 +3,7 @@ from listener.listener import Listener
 from agent.agent import Agent
 from colorama import init
 from termcolor import colored
-from agent.interactions import *
+from agent.kb import *
 import re
 speaker = Speaker()
 listener = Listener()
