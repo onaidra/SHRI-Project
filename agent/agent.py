@@ -1,6 +1,6 @@
 """agent.py"""
 
-from agent.interactions import *
+from agent.kb import *
 import re
 import random
 from colorama import init

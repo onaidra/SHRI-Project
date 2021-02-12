@@ -27,7 +27,7 @@ while a==False:
         speaker.speak("Grazie, a presto")
         break
 
-    if taken==False:
+    if taken == False:
         frase=botName+": Non ho capito, puoi ripetere?"
         print(frase)
         speaker.speak("Non ho capito, puoi ripetere?")
