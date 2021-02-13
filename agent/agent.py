@@ -120,11 +120,15 @@ def db2_find(self,varx2):
 def price_fun(self,varx2):  #controllo e calcolo il prezzo delle richieste
     if(len(self.lista_)!=0):        #se ho già inserito elementi calcolo il prezzo finale
         total_price(self)
-    if self.prezzo==0:
+    if self.prezzo==0:                                                                                           
         price=single_price(self,varx2)
-        print(botName+": Il prezzo è di "+str(price)+" euro")
-        pr="Il prezzo è di "+str(price)+" euro"
-        self.speaker.speak(pr)
+        if price != 0:
+            print(botName+": Il prezzo è di "+str(price)+" euro")
+            pr="Il prezzo è di "+str(price)+" euro"
+            self.speaker.speak(pr)
+        else:
+            print(botName+": Non ho capito di cosa vuole sapere il prezzo")
+            self.speaker.speak("Non ho capito di cosa vuole sapere il prezzo")
     else :
         pr="Il costo è di "+str(self.prezzo)+" euro"
         print(botName+": "+pr)
@@ -141,6 +145,7 @@ def single_price(self,varx2):       #cerco il prezzo del singolo prodotto
                 vv2=vv[:-2]
                 if v2 ==vv1 or v2 ==vv2:
                     return database[vv]
+    return 0
 
 
 def ownFlowers(self,varx2):
@@ -253,8 +258,7 @@ def trigger_request(self,varx): #creo un mazzo da 0
         print_list(self)
         return
     
-    if self.listaNum_==[]:
-    
+    if len(self.listaNum_)!=len(self.lista_) :
         fun="Quante ne mettiamo?"
         print(botName+": "+fun)
         self.speaker.speak("Quante ne mettiamo?")
