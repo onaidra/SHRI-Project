@@ -5,7 +5,7 @@ database =  {"Rosa":4, "Calla":1.5, "Tulipano":3, "Giglio":3, "Gerbera":1.20, "M
 #print(database["Eucalipto"])
 database2 = {"Valentino": ["mazzo San Valentino","Il mazzo ha 13 rose rosse",50], "Matrimonio" : ["bouquet per il matrimonio","Il bouquet ha rose bianche, tulipani e fiori d'arancio",40], 
 "Comunione" : ["mazzo per comunione","Il bouquet ha tulipani bianchi, calle, rose bianche e alcuni gigli",60], "Funerale" : ["La corona per un funerale","La corona è composta da rose e calle, rigorosamente bianche",200], 
-"Compleanno": ["mazzo per un compleanno","Il mazzo è formato da gerbere e rose gialle o altrimenti un'orchidea",30], "Festa della donna":["mazzo per la festa della donna","Un bellissimo mazzo di mimosa",25],
+"Compleanno": ["mazzo per un compleanno","Il mazzo è formato da gerbere e rose gialle",30], "Festa della donna":["mazzo per la festa della donna","Un bellissimo mazzo di mimosa",25],
 "Anniversario":["mazzo per l'anniversario","Il mazzo ha 7 rose rosse",35],"Battesimo":["mazzo per il battesimo","Il bouquet ha tulipani bianchi, calle, rose bianche e alcuni gigli",60],
 "Fidanzamento":["mazzo per un fidanzamento","Il mazzo ha rose e tulipani rigorosamente rossi",40],"Amica":["mazzo per un amica","Il mazzo prevede un girasole con alcuni tulipani gialli",35]   }
 
@@ -13,7 +13,8 @@ database3={'uno':1,'una':1,'due':2,'tre':3,'quattro':4,'cinque':5,'sei':6,'sette
 'quindici':15,'sedici':16,'diciasette':17,'diciotto':18,'diciannove':19,'venti':20,'ventuno':21,'ventidue':22,
 'trenta':30,'quaranta':40,'cinquanta':50,'sessanta':60,'settanta':70,'ottanta':80,'novanta':90,'cento':100 }
 
-database4=['giallo', 'verde', 'rosso', 'arancione', 'blu', 'grigio', 'bianco','bianche', 'azzurro', 'celeste', 'nero', 'carne', 'fucsia', 'corallo', 'marrone', 'beige', 'panna']  
+database4=['giallo', 'verde', 'rosso', 'arancione', 'blu', 'grigio', 'bianco','bianche', 'azzurro', 
+'celeste', 'nero', 'carne', 'fucsia', 'corallo', 'marrone', 'beige', 'panna']  
 
 Richieste = {
     '1': ["([a-z])?(Mi servirebbe|Vorrei|Ho bisogno di|Desidero|Voglio|Mi serve|Vorrei comprare|Voglio comprare|Desidero comprare)? un mazzo di fiori([a-z])?"],
@@ -25,8 +26,8 @@ Richieste = {
     '7': ["([a-z])?(altri|altro|diverso|diversi)([a-z])?"],
     '8': ["([a-z])?(mazzo di|mazzetto di|mazzo con|vorrei)([a-z])?"],
     '9': ["([a-z])?(avete|ci sono|vendete)([a-z])?"]
+    #'10':["([a-z])?"]
     #'saluto': ["([a-z])?(arrivederci|ciao|alla prossima)([a-z])?"]
-
 }
 
 Risposte = {

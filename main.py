@@ -24,6 +24,8 @@ while a==False:
             match = re.search(interaction.upper(),command.upper())
 
     if (match) and endCheck==True:
+        frase=botName+": Grazie, a presto"
+        print(frase)
         speaker.speak("Grazie, a presto")
         break
 

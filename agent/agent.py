@@ -40,9 +40,7 @@ class Agent:
 
     def think_man(self, command:str):
         varx=command.upper()
-        print(self.trigger)
         match=find_match(self,varx)
-        print(match)
         if match == '2':
             self.waitForFlowers = True
         if match == '4':     #tipologia evento
@@ -81,8 +79,8 @@ class Agent:
                 self.speaker.speak(fun)
                 
         if match==False:
-            print(botName+colored(": Mi dispiace non abbiamo nulla",'red'))
-            self.speaker.speak("Mi dispiace non abbiamo nulla")
+            print(botName+colored(": Scusi non ho capito, può ripetere?",'red'))
+            self.speaker.speak("Scusi non ho capito, può ripetere?")
 
 
 def find_match(self,command):
@@ -112,9 +110,10 @@ def db2_find(self,varx2):
             nomeMazzo=database2[nome][0]
             descrizioneMazzo=database2[nome][1]
             self.prezzo=database2[nome][2]
-            text1="Che ne pensa di questo "+nomeMazzo+"?\n"+descrizioneMazzo
+            text1="Che ne pensa di questo "+nomeMazzo+"?\n"+botName+": "+descrizioneMazzo
+            text2="Che ne pensa di questo "+nomeMazzo+"?\n"+descrizioneMazzo
             print(botName+": "+text1)
-            self.speaker.speak(text1)
+            self.speaker.speak(text2)
 
 
 
@@ -285,3 +284,4 @@ def trigger_request(self,varx): #creo un mazzo da 0
     print(botName+": "+totale)
     self.speaker.speak(totale)
     self.trigger=False
+    self.prezzo=0
