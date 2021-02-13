@@ -34,6 +34,7 @@ class Agent:
         self.nomi=[]
         self.colori=[]
 
+        self.flowers=False
         self.waitForFlowers= False
         self.trigger=False
 
@@ -158,19 +159,14 @@ def ownFlowers(self,varx2):
             for vv in database:
                 vv1=vv[:-1]
                 vv2=vv[:-2]
-                
-                if v2 ==vv1 or v2 ==vv2:
-                    if self.trigger==True:
-                        if vv not in self.lista_:
-                            self.lista_.append(vv)
-                            self.nomi.append(v.lower())
-                    else:
+                if not(self.flowers):
+                    if v2 ==vv1 or v2 ==vv2:
                         self.lista_.append(vv)
                         self.nomi.append(v.lower())
-                    indexN+=1
-                else:
-                    if(v2[:-1]!=''):
-                        notFound(self,[v2.capitalize()])
+                        indexN+=1
+                    else:
+                        if(v2[:-1]!=''):
+                            notFound(self,[v2.capitalize()])
             for col in database4:
                 col1=col[:-1].capitalize()
                 if col1==v2:
@@ -216,11 +212,13 @@ def print_list(self):   #stampo la composizione del mazzo
         if len(self.notFound)!=0:
             print_notfound(self)
             self.waitForFlowers = True
+            return False
         else:
             fun="Scusi non ho capito, potrebbe ripetere?"
             print(botName+": "+fun)
             self.speaker.speak(fun)
             self.waitForFlowers = True
+            return False
 
 def total_price(self):  #calcolo prezzo totale finale
     for i in range(len(self.lista_)):
@@ -263,8 +261,11 @@ def trigger_request(self,varx): #creo un mazzo da 0
         self.speaker.speak("Quante ne mettiamo?")
     
         command,taken=self.listener.listen()
+
+        self.flowers=True           #flag per non ripetere i nomi dei fiori
         ownFlowers(self,command.split())
-    
+        self.flowers=False
+        
         while len(self.listaNum_)!= len(self.lista_):
             print(self.lista_)
             print(self.listaNum_)
@@ -272,12 +273,15 @@ def trigger_request(self,varx): #creo un mazzo da 0
             print(botName+": "+fun)
             self.speaker.speak("Scusi non ho capito quanti, potrebbe ripetere?")
             self.listaNum_=[]
+            self.lista_=[]
+            
             command,taken=self.listener.listen()
             ownFlowers(self,command.split())
     
     total_price(self)
-    print_list(self)
-    totale="Il prezzo totale è di "+str(self.prezzo)+" euro"
+    check=print_list(self)
+    if(check!=False):
+        totale="Il prezzo totale è di "+str(self.prezzo)+" euro"
     print(botName+": "+totale)
     self.speaker.speak(totale)
     self.trigger=False
