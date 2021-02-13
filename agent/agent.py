@@ -14,7 +14,7 @@ def notFound(self,parole):
         linea=f.readline().strip("\n")
         while(linea):
             for p in parole:
-                if p in linea:
+                if p==linea[:-1] or p[:-1]==linea[:-2]:
                     if linea not in self.notFound and linea not in self.lista_:
                         self.notFound.append(linea)
             linea=f.readline().strip("\n")
