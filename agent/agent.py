@@ -111,8 +111,8 @@ def db2_find(self,varx2):
 
 
 
-def price_fun(self,varx2):
-    if(len(self.lista_)!=0):
+def price_fun(self,varx2):  #controllo e calcolo il prezzo delle richieste
+    if(len(self.lista_)!=0):        #se ho già inserito elementi calcolo il prezzo finale
         total_price(self)
     if self.prezzo==0:
         price=single_price(self,varx2)
@@ -125,7 +125,7 @@ def price_fun(self,varx2):
         self.speaker.speak(pr)
         self.prezzo=0
 
-def single_price(self,varx2):
+def single_price(self,varx2):       #cerco il prezzo del singolo prodotto
     for v in varx2:
         v2=v.capitalize()
         v2=v2[:-1]
@@ -188,7 +188,7 @@ def ownFlowers(self,varx2):
         return 
 
 
-def print_list(self):
+def print_list(self):   #stampo la composizione del mazzo
     x=""
     if len(self.lista_)==len(self.listaNum_) and len(self.lista_)!=0:
 
@@ -202,35 +202,42 @@ def print_list(self):
         self.speaker.speak(fun)
     
     else:
-        fun="Scusi non ho capito, potrebbe ripetere?"
-        print(botName+": "+fun)
-        self.speaker.speak(fun)
-        self.waitForFlowers = True
+        if len(self.notFound)!=0:
+            print_notfound(self)
+            self.waitForFlowers = True
+        else:
+            fun="Scusi non ho capito, potrebbe ripetere?"
+            print(botName+": "+fun)
+            self.speaker.speak(fun)
+            self.waitForFlowers = True
 
-def total_price(self):
+def total_price(self):  #calcolo prezzo totale finale
     for i in range(len(self.lista_)):
         self.prezzo+=database[self.lista_[i]]*self.listaNum_[i]
 
-def trigger_request(self,varx):
+def print_notfound(self):
+    fun=("Mi dispiace ma non abbiamo alcun ")
+    
+    if len(self.notFound)==1:
+        fun+=self.notFound[0]
+    
+    else:
+    
+        for i in range(len(self.notFound)):
+            if i<len(self.notFound)-1:
+                fun+=self.notFound[i]+" ne "
+            else:
+                fun+=self.notFound[i]
+    
+    print(botName+": "+fun)
+    self.speaker.speak(fun)
+    self.trigger=False
+
+def trigger_request(self,varx): #creo un mazzo da 0
     ownFlowers(self,varx)
 
     if self.notFound!=[]:       #fiori non presenti
-        fun=("Mi dispiace ma non abbiamo alcun ")
-        
-        if len(self.notFound)==1:
-            fun+=self.notFound[0]
-        
-        else:
-        
-            for i in range(len(self.notFound)):
-                if i<len(self.notFound)-1:
-                    fun+=self.notFound[i]+" ne "
-                else:
-                    fun+=self.notFound[i]
-        
-        print(botName+": "+fun)
-        self.speaker.speak(fun)
-        self.trigger=False
+        print_notfound(self)
         return
         
     if self.lista_==[]:         #
