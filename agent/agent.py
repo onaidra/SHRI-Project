@@ -39,7 +39,7 @@ class Agent:
 
     def think_man(self, command:str):
         varx=command.upper()
-
+        print(self.trigger)
         match=find_match(self,varx)
         print(match)
         if match == '2':
@@ -50,6 +50,11 @@ class Agent:
         if match== '5':
             varx2=command.split()
             price_fun(self,varx2)
+            self.lista_=[]
+            self.listaNum_=[]
+            self.notFound=[]
+            self.nomi=[]
+            self.colori=[]
         if match == '8':
             self.trigger=True
             trigger_request(self,command.split())
@@ -57,6 +62,7 @@ class Agent:
             self.listaNum_=[]
             self.notFound=[]
             self.nomi=[]
+            self.colori=[]
 
             self.prezzo=0
         if match == '9':
@@ -139,7 +145,7 @@ def single_price(self,varx2):       #cerco il prezzo del singolo prodotto
 
 def ownFlowers(self,varx2):
     indexN=0
-
+    
     if self.trigger==False:
         self.lista_=[]
         self.listaNum_=[]
@@ -154,8 +160,13 @@ def ownFlowers(self,varx2):
                 vv2=vv[:-2]
                 
                 if v2 ==vv1 or v2 ==vv2:
-                    self.lista_.append(vv)
-                    self.nomi.append(v.lower())
+                    if self.trigger==True:
+                        if vv not in self.lista_:
+                            self.lista_.append(vv)
+                            self.nomi.append(v.lower())
+                    else:
+                        self.lista_.append(vv)
+                        self.nomi.append(v.lower())
                     indexN+=1
                 else:
                     if(v2[:-1]!=''):
@@ -168,7 +179,7 @@ def ownFlowers(self,varx2):
                             self.colori.append("")
                     if indexN==(len(self.colori)+1):
                         self.colori.append(v.lower())
-                    
+       
     if indexN>len(self.colori):
         while indexN>len(self.colori):
             self.colori.append("")
@@ -240,12 +251,9 @@ def trigger_request(self,varx): #creo un mazzo da 0
         print_notfound(self)
         return
         
-    if self.lista_==[]:         #
-        if self.notFound==[]:
-            fun="Scusi non abbiamo i fiori richiesti"
-            print(botName+": "+fun)
-            self.speaker.speak(fun)
+    if self.lista_==[]:         #nessun tipo di fiori
         self.trigger=False
+        print_list(self)
         return
     
     if self.listaNum_==[]:
@@ -258,11 +266,12 @@ def trigger_request(self,varx): #creo un mazzo da 0
         ownFlowers(self,command.split())
     
         while len(self.listaNum_)!= len(self.lista_):
-            
+            print(self.lista_)
+            print(self.listaNum_)
             fun="Scusi non ho capito quanti, potrebbe ripetere?"
             print(botName+": "+fun)
             self.speaker.speak("Scusi non ho capito quanti, potrebbe ripetere?")
-
+            self.listaNum_=[]
             command,taken=self.listener.listen()
             ownFlowers(self,command.split())
     
