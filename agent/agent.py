@@ -41,7 +41,7 @@ class Agent:
         varx=command.upper()
 
         match=find_match(self,varx)
-
+        print(match)
         if match == '2':
             self.waitForFlowers = True
         if match == '4':     #tipologia evento
@@ -112,6 +112,8 @@ def db2_find(self,varx2):
 
 
 def price_fun(self,varx2):
+    if(len(self.lista_)!=0):
+        total_price(self)
     if self.prezzo==0:
         price=single_price(self,varx2)
         print(botName+": Il prezzo è di "+str(price)+" euro")
@@ -189,8 +191,7 @@ def ownFlowers(self,varx2):
 def print_list(self):
     x=""
     if len(self.lista_)==len(self.listaNum_) and len(self.lista_)!=0:
-        for elem in self.listaNum_:
-            self.prezzo+=elem
+
         for elem in range(len(self.lista_)):
             if elem<1:
                 x+=str(self.listaNum_[elem])+" "+self.nomi[elem]+" "+self.colori[elem]+" "
@@ -206,6 +207,9 @@ def print_list(self):
         self.speaker.speak(fun)
         self.waitForFlowers = True
 
+def total_price(self):
+    for i in range(len(self.lista_)):
+        self.prezzo+=database[self.lista_[i]]*self.listaNum_[i]
 
 def trigger_request(self,varx):
     ownFlowers(self,varx)
@@ -255,8 +259,7 @@ def trigger_request(self,varx):
             command,taken=self.listener.listen()
             ownFlowers(self,command.split())
     
-    for i in range(len(self.lista_)):
-        self.prezzo+=database[self.lista_[i]]*self.listaNum_[i]
+    total_price(self)
     print_list(self)
     totale="Il prezzo totale è di "+str(self.prezzo)+" euro"
     print(botName+": "+totale)
