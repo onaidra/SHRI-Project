@@ -57,6 +57,7 @@ class Agent:
         if match == '8':
             self.trigger=True
             trigger_request(self,command.split())
+            self.trigger=False
             self.lista_=[]
             self.listaNum_=[]
             self.notFound=[]
@@ -77,6 +78,8 @@ class Agent:
                         fun+=str(database[self.lista_[i]])+" euro"
                 print(botName+": "+fun)
                 self.speaker.speak(fun)
+                self.lista_=[]
+                self.colori=[]
                 
         if match==False:
             print(botName+colored(": Scusi non ho capito, può ripetere?",'red'))
@@ -247,8 +250,9 @@ def print_notfound(self):
     self.trigger=False
 
 def trigger_request(self,varx): #creo un mazzo da 0
+    
     ownFlowers(self,varx)
-
+    
     if self.notFound!=[]:       #fiori non presenti
         print_notfound(self)
         return
@@ -259,24 +263,27 @@ def trigger_request(self,varx): #creo un mazzo da 0
         return
     
     if len(self.listaNum_)!=len(self.lista_) :
-        fun="Quante ne mettiamo?"
-        print(botName+": "+fun)
-        self.speaker.speak("Quante ne mettiamo?")
-    
-        command,taken=self.listener.listen()
+        if len(self.listaNum_)>len(self.lista_):
+            self.listaNum_=[]
+        else:
+            fun="Quante ne mettiamo?"
+            print(botName+": "+fun)
+            self.speaker.speak("Quante ne mettiamo?")
+            
+            command,taken=self.listener.listen()
 
-        self.flowers=True           #flag per non ripetere i nomi dei fiori
-        ownFlowers(self,command.split())
-        self.flowers=False
+            self.flowers=True           #flag per non ripetere i nomi dei fiori
+            ownFlowers(self,command.split())
+            self.flowers=False
         
         while len(self.listaNum_)!= len(self.lista_):
-            print(self.lista_)
-            print(self.listaNum_)
+            self.listaNum_=[]
+            self.lista_=[]
+            self.nomi=[]
             fun="Scusi non ho capito quanti, potrebbe ripetere?"
             print(botName+": "+fun)
             self.speaker.speak("Scusi non ho capito quanti, potrebbe ripetere?")
-            self.listaNum_=[]
-            self.lista_=[]
+
             
             command,taken=self.listener.listen()
             ownFlowers(self,command.split())
