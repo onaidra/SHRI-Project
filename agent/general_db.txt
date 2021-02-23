@@ -24,8 +24,6 @@ Bocca di leone
 Brionia
 Bucaneve
 Calendula
-Calla
-Camelia
 Campanula
 Caprifoglio
 Cardo
@@ -60,13 +58,9 @@ Gazania
 Gelsomino
 Gelsa
 Genziana
-Gerbera
 Giacinta
 Giacinto
-Giglio
 Gigliola
-Ginestra
-Girasole
 Gladiolo
 Hoya
 Ibis
@@ -80,7 +74,6 @@ Loto
 Madreselva
 Magnolia
 Malva
-Margherita
 Melissa
 Miltonia
 Mimosa
@@ -89,19 +82,14 @@ Muscari
 Narciso
 Non ti scordar di me
 Oleandro
-Orchidea
 Ortensia
-Papavero
 Peonia
 Primula
 Ranuncolo
-Rosa
 Sabina
 Saponaria
 Silene
 Stella alpina
 Surfinia
 Tarassaco
-Tulipano
-Viola
 Zinnia

@@ -80,6 +80,8 @@ class Agent:
                 self.speaker.speak(fun)
                 self.lista_=[]
                 self.colori=[]
+                self.listaNum_=[]
+                self.nomi=[]
                 
         if match==False:
             print(botName+colored(": Scusi non ho capito, può ripetere?",'red'))
@@ -219,6 +221,7 @@ def print_list(self):   #stampo la composizione del mazzo
         if len(self.notFound)!=0:
             print_notfound(self)
             self.waitForFlowers = True
+            self.notFOund=[]
             return False
         else:
             fun="Scusi non ho capito, potrebbe ripetere?"
